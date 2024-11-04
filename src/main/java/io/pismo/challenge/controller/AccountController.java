@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.pismo.challenge.exceptions.AccountNotFoundException;
@@ -26,7 +27,7 @@ public class AccountController {
     @PostMapping("/save")
     public ResponseEntity<Account> createAccount(@RequestBody AccountRequestDTO account) {
         Account createdAccount = accountService.createAccount(account);
-        return ResponseEntity.ok(createdAccount);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
     }
 
     @Operation(summary = "Retrieves an account by ID")

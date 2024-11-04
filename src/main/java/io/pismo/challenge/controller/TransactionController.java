@@ -33,7 +33,7 @@ public class TransactionController {
                     transaction.getOperationTypeId(),
                     transaction.getAmount()
             );
-            return ResponseEntity.ok(createdTransaction);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdTransaction);
         } catch (AccountNotFoundException | OperationTypeNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }

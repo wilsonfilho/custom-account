@@ -1,6 +1,6 @@
 # Financial API
 
-API created for the Pismo Challeng Interview
+API created for Pismo Challeng Interview
 - Java 21
 - Swagger
 - H2
@@ -13,10 +13,11 @@ $ git clone <project>
 ```
 
 Run Maven clean and install in the project folder:
+```sh
 $ mvn clean install
 ```
 
-```
+
 After the building, run the command below::
 ```sh
 $ docker compose up --build
@@ -31,8 +32,10 @@ $ docker compose up --build
 
 ### DataBase Credentials
 
-$username: sa
-$password: password
+```sh
+username: sa
+password: password
+```
 
 ### API Documentation
 

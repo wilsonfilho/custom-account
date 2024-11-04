@@ -1,6 +1,6 @@
 # Financial API
 
-API created for Pismo Challeng Interview
+API created for Pismo challenge
 - Java 21
 - Swagger
 - H2

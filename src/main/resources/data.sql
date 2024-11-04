@@ -1,0 +1,38 @@
+CREATE TYPE OPERATION_ENTRY AS ENUM ('CREDIT', 'DEBIT');
+
+CREATE TABLE account (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    document_number VARCHAR(14),
+    CONSTRAINT pk_account PRIMARY KEY(id)
+);
+
+
+CREATE TABLE operation_type (
+    id BIGINT NOT NULL,
+    description VARCHAR(120) NOT NULL,
+    entry OPERATION_ENTRY NOT NULL,
+    CONSTRAINT pk_operation_type PRIMARY KEY(id)
+);
+
+CREATE TABLE transaction (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    account_id BIGINT NOT NULL,
+    operation_type_id BIGINT NOT NULL,
+    amount NUMERIC(19,2),
+    event_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    CONSTRAINT pk_transaction PRIMARY KEY (id),
+    CONSTRAINT fk_transaction_001 FOREIGN KEY (account_id) REFERENCES account (id)
+        ON UPDATE RESTRICT ON DELETE RESTRICT,
+    CONSTRAINT fk_transaction_002 FOREIGN KEY (operation_type_id) REFERENCES operation_type (id)
+        ON UPDATE RESTRICT ON DELETE RESTRICT
+);
+
+CREATE INDEX ix_account_002 ON account (document_number);
+
+CREATE INDEX ix_transaction_001 ON transaction (account_id);
+CREATE INDEX ix_transaction_002 ON transaction (operation_type_id);
+
+INSERT INTO OPERATION_TYPE (ID, DESCRIPTION, ENTRY) VALUES (1, 'PURCHASE', 'DEBIT');
+INSERT INTO OPERATION_TYPE (ID, DESCRIPTION, ENTRY) VALUES (2, 'INSTALLMENT PURCHASE', 'DEBIT');
+INSERT INTO OPERATION_TYPE (ID, DESCRIPTION, ENTRY) VALUES (3, 'WITHDRAWAL', 'DEBIT');
+INSERT INTO OPERATION_TYPE (ID, DESCRIPTION, ENTRY) VALUES (4, 'PAYMENT', 'CREDIT');

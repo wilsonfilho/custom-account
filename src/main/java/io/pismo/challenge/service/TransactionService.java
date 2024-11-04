@@ -28,16 +28,17 @@ public class TransactionService {
     private AccountRepository accountRepository;
 
     public Transaction createTransaction(Long accountId, Long operationTypeId, BigDecimal amount) {
-        Account account = accountRepository.findById(accountId)
+        var account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new AccountNotFoundException("Account with ID " + accountId + " not found"));
 
-        OperationType operationType = operationTypeRepository.findById(operationTypeId)
+        var operationType = operationTypeRepository.findById(operationTypeId)
                 .orElseThrow(() -> new OperationTypeNotFoundException("Operation Type with ID " + operationTypeId + " not found"));
 
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
         transaction.setOperationType(operationType.getId());
-        transaction.setAmount(amount);
+        var amountValue = operationType.isCredit() ? amount : amount.negate();
+        transaction.setAmount(amountValue);
         transaction.setEventDate(LocalDateTime.now());
 
         return transactionRepository.save(transaction);

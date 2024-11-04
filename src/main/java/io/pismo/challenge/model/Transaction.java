@@ -33,6 +33,4 @@ public class Transaction {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "EVENT_DATE")
     private LocalDateTime eventDate;
-
-    // Getters and Setters
 }

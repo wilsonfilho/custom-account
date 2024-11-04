@@ -1,8 +1,6 @@
 package io.pismo.challenge.service;
 
 import io.pismo.challenge.exceptions.OperationTypeNotFoundException;
-import io.pismo.challenge.model.Account;
-import io.pismo.challenge.model.OperationType;
 import io.pismo.challenge.model.Transaction;
 import io.pismo.challenge.repository.AccountRepository;
 import io.pismo.challenge.repository.OperationTypeRepository;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class TransactionService {

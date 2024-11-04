@@ -42,9 +42,6 @@ public class AccountControllerTests {
     @Test
     public void testCreateAccountSuccess() throws Exception {
         // Arrange
-        AccountRequestDTO accountRequestDTO = new AccountRequestDTO();
-        accountRequestDTO.setDocumentNumber("12345678900");
-
         Account account = new Account();
         account.setId(1L);
         account.setDocumentNumber("12345678900");
@@ -55,7 +52,7 @@ public class AccountControllerTests {
         mockMvc.perform(post("/accounts/save")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"documentNumber\": \"12345678900\" }"))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(account.getId()))
                 .andExpect(jsonPath("$.documentNumber").value(account.getDocumentNumber()));
     }
@@ -63,13 +60,14 @@ public class AccountControllerTests {
     @Test
     public void testGetAccount_Success() throws Exception {
 
+        // Arrange
         Account account = new Account();
         account.setId(1L);
         account.setDocumentNumber("12345678900");
 
         when(accountService.getAccountById(1L)).thenReturn(Optional.of(account));
 
-
+        // Act & Assert
         mockMvc.perform(get("/accounts/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(account.getId()))
